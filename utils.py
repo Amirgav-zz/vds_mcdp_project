@@ -1,5 +1,5 @@
 import autograd.numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def nice_plot(model,samples_p,y_samples_p,samples_q,y_samples_q,true_func,save = None,params=None):
     '''
