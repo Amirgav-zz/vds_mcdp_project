@@ -50,14 +50,18 @@ def y_noise(n,sd):
     return npr.normal(loc=0,scale=sd,size=(n,1))
 
 
-y_samples_a =  y_target_d2_ind(samples_a1,samples_a2)
-y_samples_a1 = np.reshape(y_samples_a[0],(150,1)) + y_noise(num_samples, 0.1)
-y_samples_a2 = np.reshape(y_samples_a[1],(150,1)) + y_noise(num_samples, 0.1)
+y_a = y_target_d2_ind(samples_a1,samples_a2)
+y_samples_a1 = np.reshape(y_a[0],(150,1)) + y_noise(num_samples, 0.1)
+y_samples_a2 = np.reshape(y_a[1],(150,1)) + y_noise(num_samples, 0.1)
+y_samples_a = np.squeeze(np.array([y_samples_a1,y_samples_a2])).T
 
-y_samples_b =  y_target_d2_ind(samples_b1,samples_b2)
-y_samples_a1 = np.reshape(y_samples_b[0],(150,1)) + y_noise(num_samples, 0.1)
-y_samples_b2 = np.reshape(y_samples_b[1],(150,1)) + y_noise(num_samples, 0.1)
+y_b = y_target_d2_ind(samples_b1,samples_b2)
+y_samples_b1 = np.reshape(y_b[0],(150,1)) + y_noise(num_samples, 0.1)
+y_samples_b2 = np.reshape(y_b[1],(150,1)) + y_noise(num_samples, 0.1)
+y_samples_b = np.squeeze(np.array([y_samples_b1, y_samples_b2])).T
 
+sample_aa = sample_aa.T
+sample_bb = sample_bb.T
 
 model = transductive([2,32,64,2],d_units = 8)
 model.train(sample_aa, y_samples_a, sample_bb, 1000)

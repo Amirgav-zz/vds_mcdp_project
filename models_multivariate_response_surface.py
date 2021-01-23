@@ -191,7 +191,7 @@ class dropout_regularised():
 
         mean = y_hats.mean(axis=0)
         std = self.generalized_variance(y_hats)
-        sqerr = np.sum((mean.reshape((n, d)) - self.train_y)**2)
+        sqerr = np.linalg.norm((mean.reshape((n, d)) - self.train_y))**2
 
         y_hat_q = [self.forward_pass(params,self.test_x) for _ in range(10)]
         y_hat_q = np.array(y_hat_q)
@@ -210,16 +210,24 @@ class dropout_regularised():
     @staticmethod
     def generalized_variance(y_hats):
         """
-
+        Quick implementation only for 2-dimionsional y (not optimized or vectorized)
         :param y_hats:  autograd.numpy array with shape (s,n,d)
         s is the number of MCDP output samples of shape d for the n real (feature) samples provided .
         :return: autograd.numpy array with shape (n,)
         """
         s, _, _ = y_hats.shape
         gvs = []
+        means = y_hats.mean(axis=1)
+
         for i in range(s):
             sample_i = y_hats[i, :, :]
-            cov = np.cov(sample_i.T)
+            # cov = np.cov(sample_i.T) # np.cov isn't implemented in autograd
+
+            mean = means[i]
+            row1 = sample_i[:, 0] - mean[0]
+            row2 = sample_i[:, 1] - mean[1]
+            mat = np.array([row1,row2])
+            cov = np.matmul(mat,mat.T) # 2x2 covariance matrix
             gv = np.linalg.det(cov)
             gvs.append(gv)
 
@@ -316,12 +324,12 @@ class transductive(dropout_regularised):
   
         y_hats = [self.forward_pass2(params,self.train_x) for _ in range(10)]
         y_hats = np.array(y_hats)
-        y_hats = np.reshape(y_hats,(10,len(self.train_x)))
+        y_hats = np.reshape(y_hats, (10, n, d))
 
         mean = y_hats.mean(axis=0)
         # covariance determinant
         std = self.generalized_variance(y_hats)
-        sqerr = np.sum((mean.reshape((n, d)) - self.train_y)**2)
+        sqerr = np.linalg.norm((mean.reshape((n, d)) - self.train_y))**2
 
         y_hat_q = [self.forward_pass2(params, self.test_x) for _ in range(10)]
         y_hat_q = np.array(y_hat_q)
@@ -339,16 +347,24 @@ class transductive(dropout_regularised):
     @staticmethod
     def generalized_variance(y_hats):
         """
-
+        Quick implementation only for 2-dimionsional y (not optimized or vectorized)
         :param y_hats:  autograd.numpy array with shape (s,n,d)
         s is the number of MCDP output samples of shape d for the n real (feature) samples provided .
         :return: autograd.numpy array with shape (n,)
         """
         s, _, _ = y_hats.shape
         gvs = []
+        means = y_hats.mean(axis=1)
+
         for i in range(s):
             sample_i = y_hats[i, :, :]
-            cov = np.cov(sample_i.T)
+            # cov = np.cov(sample_i.T) # np.cov isn't implemented in autograd
+
+            mean = means[i]
+            row1 = sample_i[:, 0] - mean[0]
+            row2 = sample_i[:, 1] - mean[1]
+            mat = np.array([row1,row2])
+            cov = np.matmul(mat,mat.T) # 2x2 covariance matrix
             gv = np.linalg.det(cov)
             gvs.append(gv)
 
