@@ -5,7 +5,6 @@ from models import transductive
 from utils import nice_plot
 
 
-
 npr.seed(1234)
 
 class feature_dist():

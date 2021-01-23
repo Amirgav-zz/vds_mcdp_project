@@ -283,7 +283,7 @@ class transductive(dropout_regularised):
     def objective_train(self,params,t):
         
         pars, d_pars = params 
-  
+
         y_hats = [self.forward_pass2(params,self.train_x) for _ in range(10)]
         y_hats = np.array(y_hats)
         y_hats = np.reshape(y_hats,(10,len(self.train_x)))
