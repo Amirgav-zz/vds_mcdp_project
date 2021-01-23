@@ -175,8 +175,8 @@ class dropout_regularised():
         # Squared error loss
         pars, d_rates = params
 
-        n, d = self.train_y
-        m = self.test_x
+        n, d = self.train_y.shape
+        m = self.test_x.shape[0]
 
 
         drop_reg = 0
@@ -310,8 +310,8 @@ class transductive(dropout_regularised):
         
         pars, d_pars = params
 
-        n,d = self.train_y
-        m = self.test_x
+        n,d = self.train_y.shape
+        m = self.test_x.shape[0]
 
   
         y_hats = [self.forward_pass2(params,self.train_x) for _ in range(10)]
