@@ -11,7 +11,8 @@ implementation code for the paper:
 Based on the code of Alex Chan (ajc340@cam.ac.uk)
 
 
-An implementation of a transductive dropout network class for 2-dimensional response-surface can be found in models_multivariate_response_surface.py
+An implementation of a transductive dropout network class for 2-dimensional response-surface can be found in models_multivariate_response_surface.py.
+
 To run an example model run main2.py
 
 An example for 2-dimensional regression problem and an example for a 1-dimensional transductive dropout network under a Gaussian mixture in the source domain is provided in mixed_distribution_and_2d_response_surface_testing.ipynb
