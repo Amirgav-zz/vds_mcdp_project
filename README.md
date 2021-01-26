@@ -1,6 +1,6 @@
 # Tranductive Dropout
 
-Example code for the paper:
+implementation code for the paper:
 
 ## [Unlabelled Data Improves Bayesian Uncertainty Calibration under Covariate Shift](https://arxiv.org/abs/2006.14988)
 
@@ -8,18 +8,17 @@ Example code for the paper:
 
 ### International Conference on Machine Learning (ICML) 2020
 
+Based on the code of Alex Chan (ajc340@cam.ac.uk)
 
 
-Last Updated: 21 July 2020
+An implementation of a transductive dropout network class for 2-dimensional response-surface can be found in models_multivariate_response_surface.py.
 
-Code Author: Alex Chan (ajc340@cam.ac.uk)
+To run an example model run main2.py
 
-An implementation of a transductive dropout network class can be found in models.py and a walkthrough of its use in an example regression problem is provided in tutorial.ipynb
+An example for 2-dimensional regression problem and an example for a 1-dimensional transductive dropout network under a Gaussian mixture in the source domain is provided in mixed_distribution_and_2d_response_surface_testing.ipynb
+
 
 Dependencies:
 Autograd, 
 matplotlib, 
 tqdm
-
-Reference: 
-A. J. Chan, A. M. Alaa, Z. Qian, and M. van der Schaar, "Unlabelled Data Improves Bayesian Uncertainty Calibration under Covariate Shift", Proceedings of the 37th International Conference on Machine Learning (ICML), 2020
